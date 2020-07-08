@@ -36,6 +36,12 @@ jobs:
         cd ../testsuite/
         python setup.py sdist
 
+        echo $PWD
+        ls -al
+        ls -al ..
+
+        cd ../package
+
         mkdir tmp && cd tmp
         tar -zxvf ../dist/MDAnalysis-${VERSION}.tar.gz
         cd MDAnalysis-${VERSION}
