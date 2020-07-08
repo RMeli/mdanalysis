@@ -1,0 +1,48 @@
+name: pypi
+
+on:
+  release:
+    types: [ created ]
+    branches: [ deploy-test ]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools
+    - name: Get tag
+      id: tag
+      run: |
+          echo ::set-output name=TAG::${GITHUB_REF#refs/tags/}
+    - name: Build package
+      env:
+        VERSION: ${{ steps.tag.outputs.TAG }}
+      run: |
+        cd package/
+        python setup.py sdist
+
+        cd ../testsuite/
+        python setup.py sdist
+
+        mkdir tmp && cd tmp
+        tar -zxvf ../dist/MDAnalysis-${VERSION}.tar.gz
+        cd MDAnalysis-${VERSION}
+        python setup.py build --build-lib=.
+
+        python -c "import MDAnalysis.tests; MDAnalysis.tests.test(label='full', extra_argv=['--exe'])"
+    - name: Deploy package
+      run: |
+        echo TODO
+    - name: Build and deploy docs
+      run: |
+        echo TODO
