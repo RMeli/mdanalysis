@@ -27,7 +27,8 @@ jobs:
           echo ::set-output name=TAG::${GITHUB_REF#refs/tags/}
     - name: Build package
       env:
-        VERSION: ${{ steps.tag.outputs.TAG }}
+        #VERSION: ${{ steps.tag.outputs.TAG }}
+        VERSION: "2.0.0.dev0"
       run: |
         cd package/
         python setup.py sdist
