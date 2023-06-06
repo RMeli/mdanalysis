@@ -64,7 +64,7 @@ from . import util
 from ._cutil import (make_whole, find_fragments, _sarrus_det_single,
                      _sarrus_det_multiple)
 import numpy.typing as npt
-from typing import Union
+from typing import Union, Any
 
 # geometric functions
 
@@ -104,7 +104,7 @@ def normal(vec1: npt.ArrayLike, vec2: npt.ArrayLike) -> npt.NDArray:
     .. versionchanged:: 0.11.0
        Moved into lib.mdamath
     """
-    normal: npt.NDArray = np.cross(vec1, vec2)
+    normal: npt.NDArray[Any] = np.cross(vec1, vec2)
     n = norm(normal)
     if n == 0.0:
         return normal  # returns [0,0,0] instead of [nan,nan,nan]
