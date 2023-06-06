@@ -117,7 +117,6 @@ jobs:
 
 
   mypy :
-    if: "github.repository == 'MDAnalysis/mdanalysis'"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
