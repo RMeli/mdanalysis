@@ -104,7 +104,7 @@ def normal(vec1: npt.ArrayLike, vec2: npt.ArrayLike) -> npt.NDArray:
     .. versionchanged:: 0.11.0
        Moved into lib.mdamath
     """
-    normal: npt.NDArray = np.cross(np.array(vec1), np.array(vec2))
+    normal: npt.NDArray = np.cross(np.asarray(vec1), np.asarray(vec2))
     n = norm(normal)
     if n == 0.0:
         return normal  # returns [0,0,0] instead of [nan,nan,nan]
@@ -171,7 +171,7 @@ def stp(vec1: npt.ArrayLike, vec2: npt.ArrayLike, vec3: npt.ArrayLike) -> float:
     .. versionchanged:: 0.11.0
        Moved into lib.mdamath
     """
-    return np.dot(vec3, np.cross(np.array(vec1), np.array(vec2)))
+    return np.dot(vec3, np.cross(np.asarray(vec1), np.asarray(vec2)))
 
 
 def dihedral(ab: npt.ArrayLike, bc: npt.ArrayLike, cd: npt.ArrayLike) -> float:
